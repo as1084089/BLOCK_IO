@@ -8,8 +8,19 @@
 
 int main(int argc, char** argv) {
 
-	int start_lba = atoi(argv[1]);
-	int size = atoi(argv[2]);
+	int start_lba = 0;
+	int size = 0;
+
+	if (argc > 2) {
+		start_lba = atoi(argv[1]);
+		size = atoi(argv[2]);
+	}
+	else {
+		printf("START_LBA = ");
+		scanf("%d", &start_lba);
+		printf("REQUEST SIZE = ");
+		scanf("%d", &size);
+	}
 
     int fd = open("/dev/sda", O_DIRECT | O_RDONLY);
     int *buf = (int*)aligned_alloc(PRESET, size * PRESET * sizeof(int));
