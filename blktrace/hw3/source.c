@@ -10,7 +10,22 @@
 
 int main(int argc, char **argv) {
 
-    // code here
+    char file_path[1024];
+
+    printf("FILE_PATH: ");
+    scanf("%s", file_path);
+
+    int fd = open(file_path, O_DIRECT | O_RDONLY );
+    int *buf = (int*)aligned_alloc(512, 512 * sizeof(int));
+
+    while(1) {
+        if (read(fd, buf, 512) <= 0) {
+            break;
+        }
+    }
+
+    free(buf);
+    close(fd);
 
     return 0;
 }
