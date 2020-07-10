@@ -12,4 +12,5 @@
 > 입력으로 주어지는 파일의 byte address가 block device의 LBA로 어떻게 매핑되어 있는지 확인하는 프로그램을 작성한다.
 <br/> 프로그램은 두 부분으로 구성된다.<br/>
 <br/> - Part I: 입력으로 주어지는 파일을 512byte씩 읽는 프로그램. O_DIRECT로 open()한다.
-<br/> - Part II: 위 프로그램을 실행하면서 캡처한 blktrace의 기록을 parsing하는 프로그램을 작성한다.
+<br/> - Part II: 위 프로그램을 실행하면서 캡처한 blktrace의 기록을 parsing하는 프로그램을 작성한다.<br/>
+<br/> 과제 동작의 검증은 hardpam --fibmap /dev/nvme0n1 명령어를 통해 출력을 비교하였다.
