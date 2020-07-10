@@ -10,8 +10,13 @@
 
 int main(int argc, char **argv) {
 
-    char file_path[1024];
+    int tmp = open("tmp", O_RDWR | O_CREAT , 0777);
+    char pid[16] = { 0x00 };
+    sprintf(pid, "%d", getpid());
+    write(tmp, pid, strlen(pid));
+    close(tmp);
 
+    char file_path[1024];
     printf("FILE_PATH: ");
     scanf("%s", file_path);
 

@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 		scanf("%d", &size);
 	}
 
-    int fd = open("/dev/sda", O_DIRECT | O_RDONLY);
+    int fd = open("/dev/nvme0n1p7", O_DIRECT | O_RDONLY);
     int *buf = (int*)aligned_alloc(PRESET, size * PRESET * sizeof(int));
 
 	lseek(fd, start_lba * PRESET, SEEK_SET);
