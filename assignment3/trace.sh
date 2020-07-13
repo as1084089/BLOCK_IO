@@ -13,6 +13,10 @@ if [ ! ${EUID} = 0 ]; then
   exit
 fi
 
+if [ ! -d "outputs" ]; then
+  mkdir outputs
+fi
+
 cd executables/
 echo " ========================    I/O tracing start    ========================"
 sudo ./command.sh $1 &
