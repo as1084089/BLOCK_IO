@@ -14,7 +14,8 @@
 <br/> - Part I: 입력으로 주어지는 파일을 512byte씩 읽는 프로그램. O_DIRECT로 open()한다.
 <br/> - Part II: 위 프로그램을 실행하면서 캡처한 blktrace의 기록을 parsing하는 프로그램을 작성한다.<br/>
 <br/> 과제 동작의 검증은 hdpam --fibmap /dev/nvme0n1 명령어를 통해 출력을 비교하였다. <br/>
-<br/> 사용법: <br/>
+
+> 사용법: <br/>
 <br/> # tracing
 <br/> 1. make
 <br/> 2. ./trace.sh [block_device] [file_path] [i/o_size] <br/>
