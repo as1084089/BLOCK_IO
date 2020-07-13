@@ -17,7 +17,7 @@
 ##### < 실행 사진 (hdparm과 비교, 오른쪽 사진은 large file) >
 > <img align="right" src="./hw3/images/largeFile.png" height="380px"/>
 <img align="left" src="./hw3/images/screenshot.png" height="380px"/> <br/>
-
+<br/><br/><br/><br/><br/><br/><br/><br/>
 <br/> 사용법: <br/>
 <br/> # tracing
 <br/> 1. make
