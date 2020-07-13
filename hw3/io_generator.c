@@ -10,27 +10,39 @@
 
 int main(int argc, char **argv) {
 
-    int BLOCKSIZE = 0;
+    if(argc < 3) {
+      printf("usage: ./io_generator [FILE_PATH] [BLOCKSIZE]\n");
+      return 0;
+    }
+    int BLOCKSIZE = atoi(argv[2]);
     int tmp = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC , 0644);
     char pid[16] = { 0x00 };
     sprintf(pid, "%d", getpid());
     write(tmp, pid, strlen(pid));
     close(tmp);
 
-    char file_path[1024];
-    printf("FILE_PATH: ");
-    scanf("%s", file_path);
-    printf("BLOCKSIZE: ");
-    scanf("%d", &BLOCKSIZE);
+    printf("file path: %s\n", argv[1]);
+    printf("block size: %s\n", argv[2]);
 
-    int fd = open(file_path, O_DIRECT | O_RDONLY );
+    int fd = open(argv[1], O_DIRECT | O_RDONLY );
+    unsigned long fsize = lseek(fd, 0, SEEK_END);
+    printf("file size: %lu bytes\n\n", fsize);
+    lseek(fd, 0, SEEK_SET);
     int *buf = (int*)aligned_alloc(BLOCKSIZE, BLOCKSIZE * sizeof(int));
 
+    unsigned long curr_point = 0;
+    double curr_percent = 0;
+    double last = 0;
     while(1) {
-        if (read(fd, buf, BLOCKSIZE) <= 0) {
-            break;
+        curr_point += read(fd, buf, BLOCKSIZE);
+        curr_percent = ((double)curr_point / (double)fsize) * 100;
+        if(curr_percent - last >= 5) {
+          printf("\t%11lu / %-11lu [%6.1lf%% ]\n", curr_point, fsize, curr_percent);
+          if(curr_percent >= 100.0) break;
+          last += 5;
         }
     }
+    printf("\n");
 
     free(buf);
     close(fd);
