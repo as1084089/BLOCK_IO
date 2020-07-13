@@ -326,7 +326,7 @@ void printLinkedList(linkedList *L) {
   printf("+=======++===========================+=========================+=========+\n");
   while(1) {
     sectors = p->data->second - p->data->first + 1;
-    printf("| %-5d || %-12lu~ %-12lu| %-11lu~ %-11lu| %7lu | stamp=%lu\n", ++index, mapper * 512, (mapper + sectors) * 512 - 1, p->data->first, p->data->second, sectors, p->data->stamp);
+    printf("| %-5d || %-12lu~ %-12lu| %-11lu~ %-11lu| %7lu |\n", ++index, mapper * 512, (mapper + sectors) * 512 - 1, p->data->first, p->data->second, sectors);
     mapper += sectors;
     if(p->next == NULL) break;
     p = p->next;
