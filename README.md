@@ -27,3 +27,5 @@
 <br> # cleaning
 <br> 1. make clean | make clean_all </br>
 <br> hdparm과 비교하면 sector의 수에서 약간의 차이가 발생한 것을 확인 할 수 있는데, read I/O의 크기를 512 bytes로 설정했기 때문이다. 옵션으로 read I/O를 file system의 block size와 동일한 4096 bytes로 설정하면 hdparm과 동일한 결과를 얻을 수 있다.
+
+### [HW4]
