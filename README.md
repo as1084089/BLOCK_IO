@@ -24,7 +24,6 @@
 <img src="./hw3/images/large_file.png" height="320px"></img>
 </div>
 
-#### 사용법
 <b>tracing</b>
 <br> 1. $ make
 <br> 2. $ sudo ./trace.sh [block_device] [file_path] [i/o_size] </br>
