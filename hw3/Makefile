@@ -10,4 +10,4 @@ clean:
 	rm -f output.txt tmp
 
 clean_all: clean
-	rm -f parser generator
+	rm -f parser io_generator
