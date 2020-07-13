@@ -1,4 +1,4 @@
-# blktrace
+# BLOCK I/O
 
 ### [과제1]
 리눅스에서 blktrace를 실행하여 일정한 형식으로 I/O trace를 출력한다.
