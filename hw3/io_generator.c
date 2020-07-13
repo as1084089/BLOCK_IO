@@ -11,7 +11,7 @@
 int main(int argc, char **argv) {
 
     if(argc < 3) {
-      printf("usage: ./io_generator [FILE_PATH] [BLOCKSIZE]\n");
+      printf("usage: ./io_generator [FILE_PATH] [I/O_SIZE]\n");
       return 0;
     }
     int BLOCKSIZE = atoi(argv[2]);
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     close(tmp);
 
     printf("file path: %s\n", argv[1]);
-    printf("block size: %s\n", argv[2]);
+    printf("i/o size: %s\n", argv[2]);
 
     int fd = open(argv[1], O_DIRECT | O_RDONLY );
     unsigned long fsize = lseek(fd, 0, SEEK_END);

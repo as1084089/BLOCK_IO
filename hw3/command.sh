@@ -1,1 +1,1 @@
-blktrace -a issue -d /dev/nvme0n1 -o - | blkparse -f "%p %d %S %n\n" -i - -o output.txt
+blktrace -a issue -d $1 -o - | blkparse -f "%p %d %S %n\n" -i - -o trace_output

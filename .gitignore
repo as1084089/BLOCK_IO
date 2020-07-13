@@ -4,3 +4,4 @@ io_generator
 parser
 *.txt
 *.tmp
+trace_output

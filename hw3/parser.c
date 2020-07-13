@@ -9,7 +9,6 @@
 #include <string.h>
 
 #define MAX_RANGE_SIZE 512*512
-//#define BLOCKSIZE 4096
 #define uint64_t UINT64
 
 typedef unsigned long  uint64_t;
@@ -42,12 +41,21 @@ void printLinkedList(linkedList*);
 
 int main(int argc, char **argv) {
 
+  if(argc < 3) {
+    printf("usage: ./parser [FILE_NAME] [I/O_SIZE]\n");
+    return 0;
+  }
+  else if((atoi(argv[2]) % 512) != 0) {
+    printf("I/O Size must be a positive integer that is a multiple of 512.\n");
+    return 0;
+  }
+
   if(access(".tmp", 0) != 0) {
     printf("Required file not found. First run the trace script and generator.\n");
     exit(1);
   }
 
-  if(access("output.txt", 0) != 0) {
+  if(access(argv[1], 0) != 0) {
     printf("There are no files to parse. First run the trace script and generator.\n");
     exit(1);
   }
@@ -56,12 +64,13 @@ int main(int argc, char **argv) {
   char pbuf[16] = { 0x00 };
   read(tmp, pbuf, 16); close(tmp);
   int pnum = atoi(pbuf);
+  int offset = (atoi(argv[2]) / 512) - 1;
 
   char strBuf[256] = { 0 };
   long start = -1; long end = -1;
   UINT64 pcount = 0;
 
-  FILE *f = fopen("output.txt", "r");
+  FILE *f = fopen(argv[1], "r");
 
   linkedList *L = (linkedList *)malloc(sizeof(linkedList));
   L->curr = NULL; L->head = NULL; L->tail = NULL;
@@ -77,7 +86,7 @@ int main(int argc, char **argv) {
     strncpy(e, p, 3);
     if(!strcmp(e, "CPU")) {
       pairBuf[0] = start;
-      pairBuf[1] = end;
+      pairBuf[1] = end + offset;
       pairBuf[2] = pcount;
       findLocation(L, pairBuf[0]);
       collect(L, pairBuf);
@@ -86,7 +95,7 @@ int main(int argc, char **argv) {
     }
     if(atoi(p) == pnum) {
       p = strtok(NULL, " ");
-      if(*p != 'R') continue;
+      if(strcmp(p, "R") != 0) continue;
       p = strtok(NULL, " ");
       int now = atoi(p);
       if(start == -1) {
@@ -97,7 +106,7 @@ int main(int argc, char **argv) {
       }
       else {
         pairBuf[0] = start;
-        pairBuf[1] = end;
+        pairBuf[1] = end + offset;
         pairBuf[2] = pcount;
         findLocation(L, pairBuf[0]);
         collect(L, pairBuf);
@@ -292,22 +301,43 @@ void divideByMaxRange(linkedList *L) {
 
 void sortByStamp(linkedList *L) {
   node *k = L->head;
+  node *s = NULL;
+  node *p = NULL;
+  node *n = NULL;
   while(k->next != NULL) {
     UINT64 nextStamp = k->next->data->stamp;
     if(nextStamp < k->data->stamp) {
-      node *s = k->next;
-      node *p = k->prev;
-      node *n = k->next->next;
+      s = k->next;
+
+      if(k->prev != NULL) {
+        p = k->prev;
+        p->next = s;
+      }
+      else {
+        p = NULL;
+      }
+
+      if(k->next->next != NULL) {
+        n = k->next->next;
+        n->prev = k;
+      }
+      else {
+        n = NULL;
+        L->tail = k;
+      }
+
       k->prev = s;
       k->next = n;
-      s->next = k;
       s->prev = p;
-      p->next = s;
-      n->prev = k;
+      s->next = k;
 
-      k = p;
+      if(p != NULL) k = p;
+      else {
+        k = s;
+        L->head = k;
+      }
     }
-    k = k->next;
+    else k = k->next;
   }
 }
 
