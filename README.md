@@ -14,7 +14,7 @@
 <br/> - Part I: 입력으로 주어지는 파일을 512byte씩 읽는 프로그램. O_DIRECT로 open()한다.
 <br/> - Part II: 위 프로그램을 실행하면서 캡처한 blktrace의 기록을 parsing하는 프로그램을 작성한다.<br/>
 <br/> 과제 동작의 검증은 hdpam --fibmap /dev/nvme0n1 명령어를 통해 출력을 비교하였다. <br/>
-##### < 실행 사진 (hdparm과 비교, 오른쪽 사진은 large file) >
+##### < 실행 사진 (hdparm과 비교, 오른쪽 사진은 4.2GB의 large file) >
 <div>
 <img src="./hw3/images/screenshot.png" height="320px"></img>
 <img src="./hw3/images/large_file.png" height="320px"></img>
