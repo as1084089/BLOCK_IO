@@ -13,8 +13,9 @@ if [ ! ${EUID} = 0 ]; then
   exit
 fi
 
+cd executables/
 echo " ========================    I/O tracing start    ========================"
-./command.sh $1 &
+sudo ./command.sh $1 &
 sleep 1
 if [ ! -n "`pgrep blktrace`" ]; then
   echo "I/O tracing failed."
@@ -28,4 +29,4 @@ kill -15 `pgrep blktrace` 1> /dev/null
 echo " ========================   I/O tracing finished  ========================"
 echo ""
 sleep 1
-./parser trace_output $3
+./parser ../outputs/trace_output $3

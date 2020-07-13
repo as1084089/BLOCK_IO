@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
       return 0;
     }
     int BLOCKSIZE = atoi(argv[2]);
-    int tmp = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC , 0644);
+    int tmp = open("../outputs/.tmp", O_WRONLY | O_CREAT | O_TRUNC , 0644);
     char pid[16] = { 0x00 };
     sprintf(pid, "%d", getpid());
     write(tmp, pid, strlen(pid));

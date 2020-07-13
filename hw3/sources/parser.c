@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  if(access(".tmp", 0) != 0) {
+  if(access("../outputs/.tmp", 0) != 0) {
     printf("Required file not found. First run the trace script and generator.\n");
     exit(1);
   }
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  int tmp = open(".tmp", O_RDONLY);
+  int tmp = open("../outputs/.tmp", O_RDONLY);
   char pbuf[16] = { 0x00 };
   read(tmp, pbuf, 16); close(tmp);
   int pnum = atoi(pbuf);
