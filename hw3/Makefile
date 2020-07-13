@@ -1,6 +1,6 @@
 all: io_generator parser
 
-io_generator: source.c Makefile
+io_generator: io_generator.c Makefile
 	gcc io_generator.c -o io_generator
 
 parser: parser.c Makefile
