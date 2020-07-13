@@ -3,3 +3,4 @@ addr_map_check
 generator
 parser
 *.txt
+*.tmp
