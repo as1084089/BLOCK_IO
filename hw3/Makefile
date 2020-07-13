@@ -1,7 +1,7 @@
-all: generator parser
+all: io_generator parser
 
-generator: source.c Makefile
-	gcc source.c -o generator
+io_generator: source.c Makefile
+	gcc io_generator.c -o io_generator
 
 parser: parser.c Makefile
 	gcc parser.c -o parser

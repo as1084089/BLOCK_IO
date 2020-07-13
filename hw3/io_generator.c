@@ -10,7 +10,8 @@
 
 int main(int argc, char **argv) {
 
-    int tmp = open("tmp", O_RDWR | O_CREAT , 0777);
+    int BLOCKSIZE = 0;
+    int tmp = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC , 0644);
     char pid[16] = { 0x00 };
     sprintf(pid, "%d", getpid());
     write(tmp, pid, strlen(pid));
@@ -19,12 +20,14 @@ int main(int argc, char **argv) {
     char file_path[1024];
     printf("FILE_PATH: ");
     scanf("%s", file_path);
+    printf("BLOCKSIZE: ");
+    scanf("%d", &BLOCKSIZE);
 
     int fd = open(file_path, O_DIRECT | O_RDONLY );
-    int *buf = (int*)aligned_alloc(512, 512 * sizeof(int));
+    int *buf = (int*)aligned_alloc(BLOCKSIZE, BLOCKSIZE * sizeof(int));
 
     while(1) {
-        if (read(fd, buf, 512) <= 0) {
+        if (read(fd, buf, BLOCKSIZE) <= 0) {
             break;
         }
     }
